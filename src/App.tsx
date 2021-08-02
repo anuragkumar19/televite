@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { State } from './types'
 import { removeLoading } from './redux/actions/loading'
 import axios from 'axios'
-import { setUser } from './redux/actions/user'
+import { setAccessToken, setUser } from './redux/actions/user'
 
 export const App: FC = () => {
     const loading = useSelector((state: State) => state.loading)
@@ -47,7 +47,7 @@ export const App: FC = () => {
                 setInterval(async () => {
                     const refreshedAccessToken = await getAccessToken()
 
-                    dispatch(refreshedAccessToken)
+                    dispatch(setAccessToken(refreshedAccessToken))
                 }, 1000 * 60 * 4)
             } catch (err) {
                 //...
