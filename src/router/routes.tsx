@@ -1,8 +1,9 @@
-import React, { ComponentType } from 'react'
+import { ComponentType } from 'react'
 import { VerifyOtpPage } from '../pages/VerifyOtpPage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { UpdateNamePage } from '../pages/UpdateNamePage'
+import { HomePage } from '../pages/HomePage'
 
 interface Route {
     path: string
@@ -13,7 +14,7 @@ interface Route {
 const routes: Route[] = [
     {
         path: '/',
-        Component: () => <h1>Home</h1>,
+        Component: HomePage,
         exact: true,
     },
     {
@@ -34,6 +35,7 @@ const routes: Route[] = [
     {
         path: '/profile/update/name',
         Component: UpdateNamePage,
+        exact: true,
     },
 ]
 
