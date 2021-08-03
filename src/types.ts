@@ -15,6 +15,12 @@ export interface User {
     accessToken: string
 }
 
+export interface PublicUser {
+    name: string
+    profilePicture: string
+    uid: number
+}
+
 export interface State {
     loading: boolean
     user?: User

@@ -8,7 +8,7 @@ import { useProtect } from '../hooks/useProtect'
 import { State } from '../types'
 import { ButtonWithLoader } from '../components/ButtonWithLoader'
 import { Link } from 'react-router-dom'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Typography } from '@material-ui/core'
 import { NavBar } from '../components/NavBar'
 
 export const ProfilePage: FC<any> = ({ history }) => {
@@ -39,7 +39,7 @@ export const ProfilePage: FC<any> = ({ history }) => {
             <NavBar user={user} />
             <CenteredCard>
                 <img
-                    src='https://i.pinimg.com/736x/64/81/22/6481225432795d8cdf48f0f85800cf66.jpg'
+                    src={user?.profilePicture}
                     alt=''
                     style={{ width: '100px', borderRadius: '50px' }}
                 />
@@ -55,6 +55,16 @@ export const ProfilePage: FC<any> = ({ history }) => {
                     </IconButton>
                 </h1>
                 <h3>Email : {user?.email}</h3>
+                <h3>UID : {user?.uid}</h3>
+                <h4>
+                    Public Profile :{' '}
+                    <Link
+                        to={'/user/' + user?.uid}
+                        style={{ color: '#ddd', display: 'block' }}
+                    >
+                        {location.origin + '/user/' + user?.uid}
+                    </Link>
+                </h4>
                 <ButtonWithLoader
                     variant='contained'
                     style={{ background: red[500], color: '#fff' }}
