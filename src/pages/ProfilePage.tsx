@@ -9,6 +9,7 @@ import { State } from '../types'
 import { ButtonWithLoader } from '../components/ButtonWithLoader'
 import { Link } from 'react-router-dom'
 import { IconButton } from '@material-ui/core'
+import { NavBar } from '../components/NavBar'
 
 export const ProfilePage: FC<any> = ({ history }) => {
     const user = useSelector((state: State) => state.user)
@@ -34,33 +35,36 @@ export const ProfilePage: FC<any> = ({ history }) => {
     }
 
     return (
-        <CenteredCard>
-            <img
-                src='https://i.pinimg.com/736x/64/81/22/6481225432795d8cdf48f0f85800cf66.jpg'
-                alt=''
-                style={{ width: '100px', borderRadius: '50px' }}
-            />
-            <h1>
-                {user?.name}
-                <IconButton
-                    size='small'
-                    component={Link}
-                    to='/profile/update/name'
-                    style={{ fontSize: '10px', color: '#ddd' }}
+        <>
+            <NavBar user={user} />
+            <CenteredCard>
+                <img
+                    src='https://i.pinimg.com/736x/64/81/22/6481225432795d8cdf48f0f85800cf66.jpg'
+                    alt=''
+                    style={{ width: '100px', borderRadius: '50px' }}
+                />
+                <h1>
+                    {user?.name}
+                    <IconButton
+                        size='small'
+                        component={Link}
+                        to='/profile/update/name'
+                        style={{ fontSize: '10px', color: '#ddd' }}
+                    >
+                        <Edit />
+                    </IconButton>
+                </h1>
+                <h3>Email : {user?.email}</h3>
+                <ButtonWithLoader
+                    variant='contained'
+                    style={{ background: red[500], color: '#fff' }}
+                    startIcon={<ExitToApp />}
+                    onClick={handleLogout}
+                    loading={loading}
                 >
-                    <Edit />
-                </IconButton>
-            </h1>
-            <h3>Email : {user?.email}</h3>
-            <ButtonWithLoader
-                variant='contained'
-                style={{ background: red[500], color: '#fff' }}
-                startIcon={<ExitToApp />}
-                onClick={handleLogout}
-                loading={loading}
-            >
-                Logout
-            </ButtonWithLoader>
-        </CenteredCard>
+                    Logout
+                </ButtonWithLoader>
+            </CenteredCard>
+        </>
     )
 }

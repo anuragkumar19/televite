@@ -7,6 +7,7 @@ import { useProtect } from '../hooks/useProtect'
 import { TextField } from '@material-ui/core'
 import { ButtonWithLoader } from '../components/ButtonWithLoader'
 import { updateName } from '../redux/actions/user'
+import { NavBar } from '../components/NavBar'
 
 export const UpdateNamePage: FC<any> = ({ history }) => {
     const user = useSelector((state: State) => state.user)
@@ -46,31 +47,34 @@ export const UpdateNamePage: FC<any> = ({ history }) => {
     }
 
     return (
-        <CenteredCard>
-            <h2>Update Your Name</h2>
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    label='Name'
-                    color='secondary'
-                    fullWidth
-                    autoFocus
-                    error={!!error}
-                    helperText={error}
-                />
+        <>
+            <NavBar user={user} />
+            <CenteredCard>
+                <h2>Update Your Name</h2>
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        label='Name'
+                        color='secondary'
+                        fullWidth
+                        autoFocus
+                        error={!!error}
+                        helperText={error}
+                    />
 
-                <ButtonWithLoader
-                    variant='contained'
-                    color='primary'
-                    type='submit'
-                    style={{ marginTop: '2rem' }}
-                    loading={submitting}
-                    disabled={name === user?.name || !name}
-                >
-                    Update
-                </ButtonWithLoader>
-            </form>
-        </CenteredCard>
+                    <ButtonWithLoader
+                        variant='contained'
+                        color='primary'
+                        type='submit'
+                        style={{ marginTop: '2rem' }}
+                        loading={submitting}
+                        disabled={name === user?.name || !name}
+                    >
+                        Update
+                    </ButtonWithLoader>
+                </form>
+            </CenteredCard>
+        </>
     )
 }
