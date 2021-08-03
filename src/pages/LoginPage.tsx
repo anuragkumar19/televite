@@ -52,7 +52,6 @@ export const LoginPage: FC<Props> = ({ history }) => {
                 history.push('/verify-otp')
             } catch (err) {
                 setEmailError(err.response.data.message)
-            } finally {
                 setSubmitting(false)
             }
         } catch (err) {

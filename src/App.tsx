@@ -8,6 +8,7 @@ import { State } from './types'
 import { removeLoading } from './redux/actions/loading'
 import axios from 'axios'
 import { setAccessToken, setUser } from './redux/actions/user'
+import { LoadingPage } from './pages/LoadingPage'
 
 export const App: FC = () => {
     const loading = useSelector((state: State) => state.loading)
@@ -62,7 +63,9 @@ export const App: FC = () => {
         <Router>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                {loading ? null : (
+                {loading ? (
+                    <LoadingPage />
+                ) : (
                     <Container>
                         <RouterOutlet />
                     </Container>

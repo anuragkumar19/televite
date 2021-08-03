@@ -12,11 +12,16 @@ const useStyle = makeStyles((theme: Theme) => ({
     },
 }))
 
-export const ButtonWithLoader: FC<any> = ({ loading, children, ...props }) => {
+export const ButtonWithLoader: FC<any> = ({
+    loading,
+    disabled,
+    children,
+    ...props
+}) => {
     const classes = useStyle()
 
     return (
-        <Button {...props} disabled={loading}>
+        <Button {...props} disabled={loading || disabled}>
             {loading && (
                 <CircularProgress
                     size={24}

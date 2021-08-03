@@ -1,2 +1,3 @@
 export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN'
 export const SET_USER = 'SET_USER'
+export const UPDATE_USER_NAME = 'UPDATE_USER_NAME'

@@ -2,6 +2,7 @@ import React, { ComponentType } from 'react'
 import { VerifyOtpPage } from '../pages/VerifyOtpPage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
+import { UpdateNamePage } from '../pages/UpdateNamePage'
 
 interface Route {
     path: string
@@ -29,6 +30,10 @@ const routes: Route[] = [
         path: '/profile',
         Component: ProfilePage,
         exact: true,
+    },
+    {
+        path: '/profile/update/name',
+        Component: UpdateNamePage,
     },
 ]
 

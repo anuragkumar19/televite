@@ -3,8 +3,9 @@ import { CenteredCard } from '../components/CenteredCard'
 import { TextField } from '@material-ui/core'
 import { ButtonWithLoader } from '../components/ButtonWithLoader'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
-import { State } from 'src/types'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from '../types'
+import { setUser, setAccessToken } from '../redux/actions/user'
 
 interface Props {
     history: any
@@ -13,16 +14,36 @@ interface Props {
 export const VerifyOtpPage: FC<Props> = ({ history }) => {
     const [error, setError] = useState('')
     const [otp, setOtp] = useState('')
+    const [time, setTime] = useState(60)
     const [submitting, setSubmitting] = useState(false)
 
-    const loading = useSelector((state: State) => state.loading)
     const user = useSelector((state: State) => state.user)
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        if (!sessionStorage.getItem('user_email') || (!loading && user)) {
-            history.push('/login')
+        if (user && user.name === user.email.split('@')[0]) {
+            history.push('/profile/update/name')
+        } else if (user) {
+            history.push('/app')
         }
-    }, [loading, user])
+    }, [user])
+
+    useEffect(() => {
+        const itervalIndex = setInterval(() => {
+            setTime((state) => {
+                if (state > 0) {
+                    return state - 1
+                } else {
+                    return state
+                }
+            })
+        }, 1000)
+
+        return () => {
+            clearInterval(itervalIndex)
+        }
+    }, [setTime])
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
@@ -40,11 +61,66 @@ export const VerifyOtpPage: FC<Props> = ({ history }) => {
             )
             sessionStorage.removeItem('user_email')
             setError('')
-            history.push('/app')
+
+            try {
+                const getAccessToken = async () => {
+                    const { data } = await axios.put(
+                        '/api/auth/refresh-token',
+                        {},
+                        {
+                            withCredentials: true,
+                        }
+                    )
+
+                    return data.data.accessToken as string
+                }
+
+                const accessToken = await getAccessToken()
+
+                const { data: userData } = await axios.get('/api/user/me', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                })
+
+                const user = { ...userData, accessToken }
+
+                dispatch(setUser(user))
+
+                setInterval(async () => {
+                    const refreshedAccessToken = await getAccessToken()
+
+                    dispatch(setAccessToken(refreshedAccessToken))
+                }, 1000 * 60 * 4)
+            } catch (err) {
+                alert('Invalid Login!')
+            }
         } catch (err) {
             setError(err.response.data.message)
         } finally {
             setSubmitting(false)
+        }
+    }
+
+    const handleResendOtp = async () => {
+        try {
+            setSubmitting(true)
+            await axios.post('/api/auth/login', {
+                email: sessionStorage.getItem('user_email'),
+            })
+
+            alert('OTP send')
+        } catch (err) {
+            const redirect = confirm(
+                'Failed try to login again, Press "OK" to go to login page'
+            )
+
+            if (redirect) {
+                history.push('/login')
+            }
+        } finally {
+            setSubmitting(false)
+            setTime(60)
         }
     }
 
@@ -73,6 +149,15 @@ export const VerifyOtpPage: FC<Props> = ({ history }) => {
                     loading={submitting}
                 >
                     Verfiy OTP
+                </ButtonWithLoader>
+
+                <ButtonWithLoader
+                    disabled={time > 0}
+                    loading={submitting}
+                    onClick={handleResendOtp}
+                    style={{ marginTop: '1rem' }}
+                >
+                    Resend OTP ({`${time}s`})
                 </ButtonWithLoader>
             </form>
         </CenteredCard>

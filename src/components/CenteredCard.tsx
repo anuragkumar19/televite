@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import Logo from '../favicon.svg'
 
 interface Props {
-    logo: boolean
+    logo?: boolean
 }
 
 export const CenteredCard: FC<Props> = ({ children, logo }) => {
