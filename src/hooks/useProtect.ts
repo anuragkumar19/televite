@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { State } from 'src/types'
+import { State } from '../types'
 
 export const useProtect = (history: any) => {
     const loading = useSelector((state: State) => state.loading)

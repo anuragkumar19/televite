@@ -6,6 +6,7 @@ import {
     Tabs,
     Theme,
     useTheme,
+    List,
 } from '@material-ui/core'
 import React, { FC } from 'react'
 import SwipeableViews from 'react-swipeable-views'
@@ -14,6 +15,7 @@ import { NavBar } from '../components/NavBar'
 import { TabPanel } from '../components/TabPanel'
 import { useSelector } from 'react-redux'
 import { State } from '../types'
+import { UserListItem } from '../components/UserListItem'
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -71,19 +73,32 @@ export const FriendsPage: FC<any> = ({ history }) => {
                     onChangeIndex={handleChangeIndex}
                 >
                     <TabPanel value={value} index={0} dir={theme.direction}>
-                        {user?.pendingRequests.map((req) => (
-                            <p key={req._id}>{req.name}</p>
-                        ))}
+                        {user?.pendingRequests.length === 0 && (
+                            <p>No Pending Requests</p>
+                        )}
+                        <List>
+                            {user?.pendingRequests.map((u) => (
+                                <UserListItem user={u} key={u._id} />
+                            ))}
+                        </List>
                     </TabPanel>
                     <TabPanel value={value} index={1} dir={theme.direction}>
-                        {user?.sentRequests.map((req) => (
-                            <p key={req._id}>{req.name}</p>
-                        ))}
+                        {user?.sentRequests.length === 0 && (
+                            <p>No sent Requests</p>
+                        )}
+                        <List>
+                            {user?.sentRequests.map((u) => (
+                                <UserListItem user={u} key={u._id} />
+                            ))}
+                        </List>
                     </TabPanel>
                     <TabPanel value={value} index={2} dir={theme.direction}>
-                        {user?.friends.map((req) => (
-                            <p key={req.user._id}>{req.user.name}</p>
-                        ))}
+                        {user?.friends.length === 0 && <p>No Friends</p>}
+                        <List>
+                            {user?.friends.map((u) => (
+                                <UserListItem user={u.user} key={u.user._id} />
+                            ))}
+                        </List>
                     </TabPanel>
                 </SwipeableViews>
             </div>

@@ -7,7 +7,7 @@ import { ButtonWithLoader } from '../components/ButtonWithLoader'
 import { TextField } from '@material-ui/core'
 import { CenteredCard } from '../components/CenteredCard'
 import { useSelector } from 'react-redux'
-import { State } from 'src/types'
+import { State } from '../types'
 
 interface Props {
     history: any
