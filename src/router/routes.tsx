@@ -5,6 +5,7 @@ import { ProfilePage } from '../pages/ProfilePage'
 import { UpdateNamePage } from '../pages/UpdateNamePage'
 import { HomePage } from '../pages/HomePage'
 import { UserPublicPage } from '../pages/UserPublicPage'
+import { FriendsPage } from '../pages/FriendsPage'
 
 interface Route {
     path: string
@@ -41,6 +42,10 @@ const routes: Route[] = [
     {
         path: '/user/:uid',
         Component: UserPublicPage,
+    },
+    {
+        path: '/app/friends',
+        Component: FriendsPage,
     },
 ]
 

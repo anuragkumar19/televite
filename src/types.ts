@@ -1,24 +1,25 @@
 export interface OtherUser {
+    _id: string
     name: string
     uid: number
     profilePicture: string
 }
 
+export interface FriendType {
+    room: string
+    user: OtherUser
+}
+
 export interface User {
+    _id: string
     name: string
     email: string
     profilePicture: string
     uid: number
     sentRequests: OtherUser[]
     pendingRequests: OtherUser[]
-    friends: OtherUser[]
+    friends: FriendType[]
     accessToken: string
-}
-
-export interface PublicUser {
-    name: string
-    profilePicture: string
-    uid: number
 }
 
 export interface State {

@@ -8,7 +8,7 @@ import { useProtect } from '../hooks/useProtect'
 import { State } from '../types'
 import { ButtonWithLoader } from '../components/ButtonWithLoader'
 import { Link } from 'react-router-dom'
-import { IconButton, Typography } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import { NavBar } from '../components/NavBar'
 
 export const ProfilePage: FC<any> = ({ history }) => {
@@ -36,7 +36,7 @@ export const ProfilePage: FC<any> = ({ history }) => {
 
     return (
         <>
-            <NavBar user={user} />
+            <NavBar />
             <CenteredCard>
                 <img
                     src={user?.profilePicture}

@@ -48,7 +48,7 @@ export const UpdateNamePage: FC<any> = ({ history }) => {
 
     return (
         <>
-            <NavBar user={user} />
+            <NavBar />
             <CenteredCard>
                 <h2>Update Your Name</h2>
                 <form onSubmit={handleSubmit}>

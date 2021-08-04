@@ -5,10 +5,11 @@ import {
     Button,
     makeStyles,
 } from '@material-ui/core'
-import { Chat, Person } from '@material-ui/icons'
+import { Chat, Person, People } from '@material-ui/icons'
 import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { User } from 'src/types'
+import { State } from '../types'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,14 +24,22 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface Props {
-    user?: User
+    position?:
+        | 'fixed'
+        | 'absolute'
+        | 'relative'
+        | 'static'
+        | 'sticky'
+        | undefined
 }
 
-export const NavBar: FC<Props> = ({ user }) => {
+export const NavBar: FC<Props> = ({ position = 'fixed' }) => {
     const classes = useStyles()
 
+    const user = useSelector((state: State) => state.user)
+
     return (
-        <AppBar position='fixed'>
+        <AppBar position={position}>
             <Toolbar>
                 <Typography variant='h6' className={classes.title}>
                     <Link style={styles.link} to='/'>
@@ -42,6 +51,11 @@ export const NavBar: FC<Props> = ({ user }) => {
                         <Button startIcon={<Chat />} color='inherit'>
                             <Link style={styles.link} to='/app'>
                                 Chat
+                            </Link>
+                        </Button>
+                        <Button startIcon={<People />} color='inherit'>
+                            <Link style={styles.link} to='/app/friends'>
+                                Friends
                             </Link>
                         </Button>
                         <Button startIcon={<Person />} color='inherit'>
