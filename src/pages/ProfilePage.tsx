@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import axios from 'axios'
-import { ExitToApp, Edit } from '@material-ui/icons'
+import { ExitToApp, Edit, CameraAlt } from '@material-ui/icons'
 import { red } from '@material-ui/core/colors'
 import { useSelector } from 'react-redux'
 import { CenteredCard } from '../components/CenteredCard'
@@ -41,8 +41,21 @@ export const ProfilePage: FC<any> = ({ history }) => {
                 <img
                     src={user?.profilePicture}
                     alt=''
-                    style={{ width: '100px', borderRadius: '50px' }}
+                    style={{
+                        width: '100px',
+                        borderRadius: '50px',
+                        display: 'block',
+                        margin: 'auto',
+                    }}
                 />
+                <IconButton
+                    size='small'
+                    component={Link}
+                    to='/profile/update/profilePicture'
+                    style={{ fontSize: '10px', color: '#ddd' }}
+                >
+                    <CameraAlt />
+                </IconButton>
                 <h1>
                     {user?.name}
                     <IconButton

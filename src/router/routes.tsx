@@ -6,6 +6,7 @@ import { UpdateNamePage } from '../pages/UpdateNamePage'
 import { HomePage } from '../pages/HomePage'
 import { UserPublicPage } from '../pages/UserPublicPage'
 import { FriendsPage } from '../pages/FriendsPage'
+import { ProfilePictureUploadPage } from '../pages/ProfilePictureUploadPage'
 
 interface Route {
     path: string
@@ -46,6 +47,11 @@ const routes: Route[] = [
     {
         path: '/app/friends',
         Component: FriendsPage,
+        exact: true,
+    },
+    {
+        path: '/profile/update/profilePicture',
+        Component: ProfilePictureUploadPage,
     },
 ]
 
