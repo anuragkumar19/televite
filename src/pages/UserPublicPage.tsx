@@ -59,7 +59,11 @@ export const UserPublicPage: FC<any> = ({ match, history }) => {
                         <img
                             src={profile?.profilePicture}
                             alt=''
-                            style={{ width: '100px', borderRadius: '50px' }}
+                            style={{
+                                width: '100px',
+                                height: '100px',
+                                borderRadius: '50%',
+                            }}
                         />
                         <Divider />
                         <h1>{profile?.name}</h1>

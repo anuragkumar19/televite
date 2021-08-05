@@ -1,15 +1,19 @@
-import { Avatar, Button, Typography } from '@material-ui/core'
-import { CloudUpload } from '@material-ui/icons'
 import axios from 'axios'
 import React, { FC, useState } from 'react'
 import Dropzone from 'react-dropzone'
-import { useSelector } from 'react-redux'
-import { State } from 'src/types'
+import { Avatar, Typography } from '@material-ui/core'
+import { CloudUpload } from '@material-ui/icons'
+import { useDispatch, useSelector } from 'react-redux'
+import { ButtonWithLoader } from '../components/ButtonWithLoader'
+import { State, User } from '../types'
 import { CenteredCard } from '../components/CenteredCard'
 import { useProtect } from '../hooks/useProtect'
+import { setUser } from '../redux/actions/user'
 
 export const ProfilePictureUploadPage: FC<any> = ({ history }) => {
     useProtect(history)
+
+    const dispatch = useDispatch()
 
     const user = useSelector((state: State) => state.user)
 
@@ -57,6 +61,7 @@ export const ProfilePictureUploadPage: FC<any> = ({ history }) => {
                 }
             )
 
+            dispatch(setUser({ ...user, profilePicture: data.data } as User))
             console.log(data)
             history.push('/profile')
         } catch (err) {
@@ -89,14 +94,15 @@ export const ProfilePictureUploadPage: FC<any> = ({ history }) => {
                 )}
             </Dropzone>
             <Typography style={{ color: 'red' }}>{error}</Typography>
-            <Button
+            <ButtonWithLoader
                 variant='contained'
                 color='primary'
                 onClick={handleSubmit}
                 startIcon={<CloudUpload />}
+                loading={loading}
             >
                 Upload
-            </Button>
+            </ButtonWithLoader>
         </CenteredCard>
     )
 }
