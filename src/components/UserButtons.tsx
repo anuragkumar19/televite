@@ -1,4 +1,4 @@
-import { Tooltip, IconButton } from '@material-ui/core'
+import { Tooltip, Button } from '@material-ui/core'
 import { red } from '@material-ui/core/colors'
 import {
     PersonAdd,
@@ -12,9 +12,14 @@ import React, { FC } from 'react'
 export const SendRequestButton: FC<any> = ({ ...prop }) => {
     return (
         <Tooltip title='Send request'>
-            <IconButton color='secondary' aria-label='send request' {...prop}>
-                <PersonAdd />
-            </IconButton>
+            <Button
+                color='secondary'
+                aria-label='send request'
+                {...prop}
+                startIcon={<PersonAdd />}
+            >
+                Send Request
+            </Button>
         </Tooltip>
     )
 }
@@ -22,13 +27,14 @@ export const SendRequestButton: FC<any> = ({ ...prop }) => {
 export const UnfriendButton: FC<any> = ({ ...prop }) => {
     return (
         <Tooltip title='Unfriend'>
-            <IconButton
+            <Button
                 aria-label='unfriend'
                 style={{ color: red[500] }}
                 {...prop}
+                startIcon={<RemoveCircle />}
             >
-                <RemoveCircle />
-            </IconButton>
+                Unfriend
+            </Button>
         </Tooltip>
     )
 }
@@ -36,9 +42,14 @@ export const UnfriendButton: FC<any> = ({ ...prop }) => {
 export const AcceptRequestButton: FC<any> = ({ ...prop }) => {
     return (
         <Tooltip title='Accept request'>
-            <IconButton aria-label='accept request' color='secondary' {...prop}>
-                <Done />
-            </IconButton>
+            <Button
+                aria-label='accept request'
+                color='secondary'
+                {...prop}
+                startIcon={<Done />}
+            >
+                Accept
+            </Button>
         </Tooltip>
     )
 }
@@ -46,13 +57,14 @@ export const AcceptRequestButton: FC<any> = ({ ...prop }) => {
 export const RejectRequestButton: FC<any> = ({ ...prop }) => {
     return (
         <Tooltip title='Reject Request'>
-            <IconButton
+            <Button
                 aria-label='reject request'
                 style={{ color: red[500] }}
                 {...prop}
+                startIcon={<Close />}
             >
-                <Close />
-            </IconButton>
+                Reject
+            </Button>
         </Tooltip>
     )
 }
@@ -61,13 +73,14 @@ export const CancleSendRequestButton: FC<any> = ({ ...prop }) => {
     return (
         <div>
             <Tooltip title='Cancel Sent Request'>
-                <IconButton
+                <Button
                     style={{ color: red[500] }}
                     aria-label='cancel send request'
                     {...prop}
+                    startIcon={<Cancel />}
                 >
-                    <Cancel />
-                </IconButton>
+                    Cancel
+                </Button>
             </Tooltip>
         </div>
     )

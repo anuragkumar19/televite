@@ -54,10 +54,12 @@ const routes: Route[] = [
     {
         path: '/profile/update/profilePicture',
         Component: ProfilePictureUploadPage,
+        exact:true
     },
     {
         path: '/app',
         Component: () => <Redirect to='/profile'></Redirect>,
+        exact:true
     },
 ]
 
