@@ -7,6 +7,8 @@ import { HomePage } from '../pages/HomePage'
 import { UserPublicPage } from '../pages/UserPublicPage'
 import { FriendsPage } from '../pages/FriendsPage'
 import { ProfilePictureUploadPage } from '../pages/ProfilePictureUploadPage'
+import { Redirect } from 'react-router-dom'
+import React from 'react'
 
 interface Route {
     path: string
@@ -52,6 +54,10 @@ const routes: Route[] = [
     {
         path: '/profile/update/profilePicture',
         Component: ProfilePictureUploadPage,
+    },
+    {
+        path: '/app',
+        Component: () => <Redirect to='/profile'></Redirect>,
     },
 ]
 
